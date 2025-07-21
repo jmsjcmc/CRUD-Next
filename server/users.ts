@@ -28,7 +28,7 @@ export async function createUser(user: User){
     }
 }
 
-export async function updateUser(id: number, user: User){
+export async function updateUser(id: number, user: Omit<User, "id" | "created_at" | "updated_at">){
     try {
         const updateUser = await db.update(users).set(user).where(eq(users.id, id));
         return updateUser;
