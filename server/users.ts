@@ -28,7 +28,7 @@ export async function createUser(user: User){
     }
 }
 
-export async function updateUser(id: string, user: User){
+export async function updateUser(id: number, user: User){
     try {
         const updateUser = await db.update(users).set(user).where(eq(users.id, id));
         return updateUser;
@@ -40,7 +40,7 @@ export async function updateUser(id: string, user: User){
     }
 }
 
-export async function deleteUser(id: string) {
+export async function deleteUser(id: number) {
     try {
         const deleteUser = await db.delete(users).where(eq(users.id, id));
         return deleteUser;
