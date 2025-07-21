@@ -1,5 +1,6 @@
 "use server";
 
+import { eq } from "drizzle-orm";
 import { db } from "../db/drizzle";
 import { User, users } from "../db/schema";
 
@@ -27,3 +28,26 @@ export async function createUser(user: User){
     }
 }
 
+export async function updateUser(id: string, user: User){
+    try {
+        const updateUser = await db.update(users).set(user).where(eq(users.id, id));
+        return updateUser;
+    } catch (error) {
+        console.error(error);
+        return {
+            error: "Failed to update user"
+        };
+    }
+}
+
+export async function deleteUser(id: string) {
+    try {
+        const deleteUser = await db.delete(users).where(eq(users.id, id));
+        return deleteUser;
+    } catch (error) {
+        console.error(error);
+        return {
+            error: "Failed to delete user"
+        }
+    }
+}
