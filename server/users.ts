@@ -10,7 +10,7 @@ export async function getUsers() {
     return allUsers;
     } catch (error) {
         console.error(error);
-        throw error
+        throw error;
         // return {
         //     error: "Failed to get users"
         // };
@@ -23,9 +23,10 @@ export async function createUser(user: User){
         return newUser;
     } catch (error) {
         console.error(error);
-        return {
-            error: "Failed to create user"
-             };
+        throw error;
+        // return {
+        //     error: "Failed to create user"
+        //      };
     }
 }
 
@@ -35,9 +36,10 @@ export async function updateUser(id: number, user: Omit<User, "id" | "created_at
         return updateUser;
     } catch (error) {
         console.error(error);
-        return {
-            error: "Failed to update user"
-        };
+        throw error;
+        // return {
+        //     error: "Failed to update user"
+        // };
     }
 }
 
@@ -47,8 +49,9 @@ export async function deleteUser(id: number) {
         return deleteUser;
     } catch (error) {
         console.error(error);
-        return {
-            error: "Failed to delete user"
-        }
+        throw error;
+        // return {
+        //     error: "Failed to delete user"
+        // }
     }
 }

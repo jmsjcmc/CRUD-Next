@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { UserForm } from "@/components/forms/user-form";
 export default async function Home() {
   const users = await getUsers();
   return (
@@ -23,11 +24,11 @@ export default async function Home() {
           </DialogTrigger>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
+      <DialogTitle>Add User</DialogTitle>
       <DialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
+        Add new user
       </DialogDescription>
+      <UserForm/>
     </DialogHeader>
   </DialogContent>
 </Dialog>
