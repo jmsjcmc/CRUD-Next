@@ -10,9 +10,10 @@ export async function getUsers() {
     return allUsers;
     } catch (error) {
         console.error(error);
-        return {
-            error: "Failed to get users"
-        };
+        throw error
+        // return {
+        //     error: "Failed to get users"
+        // };
     }
 }
 

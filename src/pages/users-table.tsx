@@ -23,16 +23,21 @@ export default async function Userstable() {
       <TableHead>Active</TableHead>
       <TableHead>Remove</TableHead>
       <TableHead>Created At</TableHead>
-      <TableHead className="text-right">Amount</TableHead>
+      <TableHead className="text-right">Updated At</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
+    {users.map((user) => (
+        <TableRow key={user.id}>
+      <TableCell className="font-medium">{user.firstname}</TableCell>
+      <TableCell>{user.lastname}</TableCell>
+      <TableCell>{user.username}</TableCell>
+      <TableCell>{user.active}</TableCell>
+      <TableCell>{user.removed}</TableCell>
+      <TableCell>{user.createdAt?.toLocaleString()}</TableCell>
+      <TableCell className="text-right">{user.updatedAt?.toLocaleString()}</TableCell>
     </TableRow>
+      ))}
   </TableBody>
 </Table>
   )
