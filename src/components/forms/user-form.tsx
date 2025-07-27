@@ -58,7 +58,7 @@ export function UserForm() {
                 <Input placeholder="" {...field} />
               </FormControl>
               <FormDescription>
-                Input your firstname.
+                 Firstname
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -74,7 +74,7 @@ export function UserForm() {
                 <Input placeholder="" {...field} />
               </FormControl>
               <FormDescription>
-                Input your lastname.
+                Lastname
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -90,7 +90,7 @@ export function UserForm() {
                 <Input placeholder="" {...field} />
               </FormControl>
               <FormDescription>
-                Input your username.
+                Username
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -106,7 +106,7 @@ export function UserForm() {
                 <Input placeholder="" {...field} />
               </FormControl>
               <FormDescription>
-                Input your password
+                Password
               </FormDescription>
               <FormMessage />
             </FormItem>
