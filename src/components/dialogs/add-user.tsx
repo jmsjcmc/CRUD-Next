@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,28 +8,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { UserForm } from "@/components/forms/user-form";
 import { Button } from "@/components/ui/button";
 import { UserPlus } from "lucide-react";
 
 export default function AddUserDialog() {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-<Button>
-          Add User <UserPlus className="size-4"/></Button>
-          </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Add User</DialogTitle>
-      <DialogDescription>
-        Add new user
-      </DialogDescription>
-      <UserForm onSuccess={() => setOpen(false)}/>
-    </DialogHeader>
-  </DialogContent>
-</Dialog>
-  )
+      <DialogTrigger asChild>
+        <Button className="flex items-center gap-2">
+          Add User <UserPlus className="size-4" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add User</DialogTitle>
+          <DialogDescription>Add new user</DialogDescription>
+          <UserForm onSuccess={() => setOpen(false)} />
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
 }

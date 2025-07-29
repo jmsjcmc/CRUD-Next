@@ -6,22 +6,17 @@ import { User, users } from "../db/schema";
 import { UserRequest } from "../interfaces/user";
 import bcrypt from "bcryptjs";
 
-
+// fetch all users
 export async function getUsers() {
     try {
-         const allUsers = await db.select().from(users);
+         const allUsers = await db.select().from(users).where(eq(users.active, true));
     return allUsers;
     } catch (error) {
         console.error(error);
         throw error;
     }
 }
-
-export async function usernameExist(username: string): Promise<boolean> {
-    const exist = await db.select().from(users).where(eq(users.username, username)).limit(1);
-    return exist.length > 0;
-}
-
+// create new user
 export async function createUser(user: UserRequest){
     try {
         const hashed = await bcrypt.hash(user.password, 10);
@@ -42,7 +37,7 @@ export async function createUser(user: UserRequest){
         throw error;
     }
 }
-
+// update specific user
 export async function updateUser(id: string, user: Omit<User, "id" | "created_at" | "updated_at">){
     try {
         await db.update(users).set(user).where(eq(users.id, id))
@@ -51,11 +46,14 @@ export async function updateUser(id: string, user: Omit<User, "id" | "created_at
         throw error;
     }
 }
-
+// soft delete specific user
 export async function deleteUser(id: string) {
     try {
         await db.update(users)
-        .set({removed: true}).where(eq(users.id, id));
+        .set({
+            active: false,
+            removed: true,
+        }).where(eq(users.id, id));
     } catch (error) {
         console.error(error);
         throw error;
