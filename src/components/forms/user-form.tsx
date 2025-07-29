@@ -18,6 +18,7 @@ import { createUser } from "../../../server/users"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { UserRequest } from "../../../interfaces/user"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   firstname: z.string().min(1),
@@ -25,8 +26,12 @@ const formSchema = z.object({
   username: z.string().min(3),
   password: z.string().min(6),
 })
+type UserFormProps = {
+  onSuccess?: () => void;
+}
 
-export function UserForm() {
+export function UserForm({onSuccess} : UserFormProps) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<UserRequest>({
     resolver: zodResolver(formSchema),
@@ -39,10 +44,13 @@ export function UserForm() {
   });
  
 async function onSubmit(values: UserRequest){
+  setIsLoading(true);
   try {
     const response = await createUser(values);
     if (response.success){
       form.reset();
+      router.refresh();
+      onSuccess?.();
     }
   } catch (error) {
     console.error("Failed to create user:", error);

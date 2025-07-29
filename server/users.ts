@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/drizzle";
 import { User, users } from "../db/schema";
 import { UserRequest } from "../interfaces/user";
+import bcrypt from "bcryptjs";
 
 
 export async function getUsers() {
@@ -21,8 +22,10 @@ export async function getUsers() {
 
 export async function createUser(user: UserRequest){
     try {
+        const hashed = await bcrypt.hash(user.password, 10);
         await db.insert(users).values({
             ...user,
+            password: hashed,
             active: true,
             removed: false,
             createdAt: new Date(),
