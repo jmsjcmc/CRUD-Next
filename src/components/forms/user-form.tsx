@@ -21,7 +21,6 @@ const formSchema = z.object({
   lastname: z.string(),
   username: z.string(),
   password: z.string(),
-
 })
 
 export function UserForm() {
@@ -36,14 +35,14 @@ export function UserForm() {
     },
   })
  
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-   const userData = {
-    ...values
-   };
-
-   await createUser(userData);
-   form.reset();
+async function onSubmit(values: z.infer<typeof formSchema>){
+  try {
+    await createUser(values);
+    form.reset();
+  } catch (error) {
+    console.error("Failed to create ")
   }
+}
 
   return (
     <Form {...form}>
@@ -55,7 +54,7 @@ export function UserForm() {
             <FormItem>
               <FormLabel>First Name</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="First Name" {...field} />
               </FormControl>
               <FormDescription>
                 Input your firstname.
@@ -71,7 +70,7 @@ export function UserForm() {
             <FormItem>
               <FormLabel>Last Name</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="Last Name" {...field} />
               </FormControl>
               <FormDescription>
                 Input your lastname.
@@ -87,7 +86,7 @@ export function UserForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="Username" {...field} />
               </FormControl>
               <FormDescription>
                 Input your username.
@@ -103,7 +102,7 @@ export function UserForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="Password" {...field} />
               </FormControl>
               <FormDescription>
                 Input your password
