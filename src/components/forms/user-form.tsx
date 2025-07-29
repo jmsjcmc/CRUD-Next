@@ -57,7 +57,7 @@ async function onSubmit(values: z.infer<typeof formSchema>){
                 <Input placeholder="First Name" {...field} />
               </FormControl>
               <FormDescription>
-                Input your firstname.
+                 Firstname
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -73,7 +73,7 @@ async function onSubmit(values: z.infer<typeof formSchema>){
                 <Input placeholder="Last Name" {...field} />
               </FormControl>
               <FormDescription>
-                Input your lastname.
+                Lastname
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -89,7 +89,7 @@ async function onSubmit(values: z.infer<typeof formSchema>){
                 <Input placeholder="Username" {...field} />
               </FormControl>
               <FormDescription>
-                Input your username.
+                Username
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -105,7 +105,7 @@ async function onSubmit(values: z.infer<typeof formSchema>){
                 <Input placeholder="Password" {...field} />
               </FormControl>
               <FormDescription>
-                Input your password
+                Password
               </FormDescription>
               <FormMessage />
             </FormItem>
