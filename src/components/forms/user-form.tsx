@@ -15,17 +15,20 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { createUser } from "../../../server/users"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
+import { UserRequest } from "../../../interfaces/user"
 
 const formSchema = z.object({
-  firstname: z.string(),
-  lastname: z.string(),
-  username: z.string(),
-  password: z.string(),
+  firstname: z.string().min(1),
+  lastname: z.string().min(1),
+  username: z.string().min(3),
+  password: z.string().min(6),
 })
 
 export function UserForm() {
-
-  const form = useForm<z.infer<typeof formSchema>>({
+  const [isLoading, setIsLoading] = useState(false);
+  const form = useForm<UserRequest>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstname: "",
@@ -33,14 +36,18 @@ export function UserForm() {
       username: "",
       password: "",
     },
-  })
+  });
  
-async function onSubmit(values: z.infer<typeof formSchema>){
+async function onSubmit(values: UserRequest){
   try {
-    await createUser(values);
-    form.reset();
+    const response = await createUser(values);
+    if (response.success){
+      form.reset();
+    }
   } catch (error) {
-    console.error("Failed to create ")
+    console.error("Failed to create user:", error);
+  } finally{
+    setIsLoading(false);
   }
 }
 
@@ -111,7 +118,7 @@ async function onSubmit(values: z.infer<typeof formSchema>){
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button disabled={isLoading} type="submit">{isLoading ? <Loader2 className="size-4 animate-spin"/> : "Add User"}</Button>
       </form>
     </Form>
   )

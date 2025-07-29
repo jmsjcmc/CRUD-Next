@@ -3,8 +3,9 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db/drizzle";
 import { User, users } from "../db/schema";
+import { UserRequest } from "../interfaces/user";
 
-type newUser = Pick<User, "firstname" | "lastname" | "username" | "password">;
+
 export async function getUsers() {
     try {
          const allUsers = await db.select().from(users);
@@ -18,16 +19,18 @@ export async function getUsers() {
     }
 }
 
-export async function createUser(user: newUser){
+export async function createUser(user: UserRequest){
     try {
-        const newUser = await db.insert(users).values({
+        await db.insert(users).values({
             ...user,
             active: true,
             removed: false,
             createdAt: new Date(),
             updatedAt: new Date()
         });
-        return newUser;
+        return {
+            success: true
+        };
     } catch (error) {
         console.error(error);
         throw error;
