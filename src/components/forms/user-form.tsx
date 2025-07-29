@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -19,6 +19,7 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { UserRequest } from "../../../interfaces/user"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner";
 
 const formSchema = z.object({
   firstname: z.string().min(1),
@@ -49,6 +50,7 @@ async function onSubmit(values: UserRequest){
     const response = await createUser(values);
     if (response.success){
       form.reset();
+      toast.success("User created successfully.")
       router.refresh();
       onSuccess?.();
     }

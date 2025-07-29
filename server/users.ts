@@ -14,15 +14,18 @@ export async function getUsers() {
     } catch (error) {
         console.error(error);
         throw error;
-        // return {
-        //     error: "Failed to get users"
-        // };
     }
+}
+
+export async function usernameExist(username: string): Promise<boolean> {
+    const exist = await db.select().from(users).where(eq(users.username, username)).limit(1);
+    return exist.length > 0;
 }
 
 export async function createUser(user: UserRequest){
     try {
         const hashed = await bcrypt.hash(user.password, 10);
+        
         await db.insert(users).values({
             ...user,
             password: hashed,
@@ -46,9 +49,6 @@ export async function updateUser(id: string, user: Omit<User, "id" | "created_at
     } catch (error) {
         console.error(error);
         throw error;
-        // return {
-        //     error: "Failed to update user"
-        // };
     }
 }
 
@@ -63,8 +63,5 @@ export async function deleteUser(id: string) {
     } catch (error) {
         console.error(error);
         throw error;
-        // return {
-        //     error: "Failed to delete user"
-        // }
     }
 }
