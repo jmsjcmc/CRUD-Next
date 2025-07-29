@@ -25,7 +25,7 @@ export async function usernameExist(username: string): Promise<boolean> {
 export async function createUser(user: UserRequest){
     try {
         const hashed = await bcrypt.hash(user.password, 10);
-        
+
         await db.insert(users).values({
             ...user,
             password: hashed,
@@ -45,7 +45,7 @@ export async function createUser(user: UserRequest){
 
 export async function updateUser(id: string, user: Omit<User, "id" | "created_at" | "updated_at">){
     try {
-       const updatedUser = await db.update(users).set(user).where(eq(users.id, id))
+        await db.update(users).set(user).where(eq(users.id, id))
     } catch (error) {
         console.error(error);
         throw error;
@@ -54,12 +54,8 @@ export async function updateUser(id: string, user: Omit<User, "id" | "created_at
 
 export async function deleteUser(id: string) {
     try {
-        const deleteUser = await db.update(users)
-        .set({
-            removed: true
-        }).where(eq(users.id, id));
-
-        return deleteUser;
+        await db.update(users)
+        .set({removed: true}).where(eq(users.id, id));
     } catch (error) {
         console.error(error);
         throw error;
